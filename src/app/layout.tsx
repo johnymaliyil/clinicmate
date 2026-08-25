@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,6 +17,23 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ClinicMate",
   description: "Patient registration, appointment booking, and medicine inventory",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "ClinicMate",
+  },
+  icons: {
+    icon: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/icons/apple-touch-icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0f766e",
 };
 
 const navLinks = [
@@ -54,6 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <footer className="border-t border-slate-200 py-4 text-center text-xs text-slate-400">
           ClinicMate — internal clinic management
         </footer>
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
